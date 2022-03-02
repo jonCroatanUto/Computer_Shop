@@ -1,33 +1,48 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { productList, productItemDetails, addItemToCar } from "../../apiCall";
+import { productList } from "../../apiCall";
+import { Container, Row, Col } from "react-bootstrap";
+import InputText from "../../components/InputText/InputText";
 function Home() {
-  function products() {
+  const [items, setItems] = useState();
+  useEffect(() => {
     productList().then((res) => console.log(res));
-  }
-  function productDetails() {
-    productItemDetails("ZmGrkLRPXOTpxsU4jjAcv").then((res) => console.log(res));
-  }
-  function addProduct() {
-    const carState = {
-      id: "ZmGrkLRPXOTpxsU4jjAcv",
-      colorCode: 1000,
-      storageCode: 2000,
-    };
-    addItemToCar(carState).then((res) => console.log(res.data.count));
+  }, []);
+  const [searcherData, setSearcherData] = useState({
+    ProductSearcher: "",
+  });
+
+  function setSearcherWord(e) {
+    // console.log();
+    setSearcherData({
+      ...searcherData,
+      [e.target.name]: e.target.value,
+    });
   }
 
   const id = "soy un id";
+  const { ProductSearcher } = searcherData;
   return (
-    <>
-      <div>i'm Home</div>
-      <Link to={`/details/${id}`}>
-        <button>Go to details</button>
-      </Link>
-      <button onClick={products}>productlist</button>
-      <button onClick={productDetails}>product details</button>
-      <button onClick={addProduct}>add product to car</button>
-    </>
+    <Container>
+      <Row>
+        <Col xs={12} md={8} lg={8}></Col>
+        <Col xs={12} md={4} lg={4}>
+          <InputText
+            type="text"
+            id="ProductSearcher"
+            label="Search a product"
+            value={ProductSearcher}
+            placeholder="Search a product"
+            handleChange={setSearcherWord}
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Link to={`/details/${id}`}>
+          <button>Go to details</button>
+        </Link>
+      </Row>
+    </Container>
   );
 }
 export default Home;
