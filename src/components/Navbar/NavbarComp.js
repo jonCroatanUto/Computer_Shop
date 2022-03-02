@@ -52,19 +52,23 @@ function NavbarComp() {
               </Nav>
 
               <NavDropdown title="history navegation" id="basic-nav-dropdown">
-                {historyNav ? (
-                  <>
-                    {historyNav.map((url) => {
-                      return (
-                        <NavDropdown.Item>
-                          <Link to={url}>link</Link>
-                        </NavDropdown.Item>
-                      );
-                    })}
-                  </>
-                ) : (
-                  <div></div>
-                )}
+                <ul style={{ listStyle: "none" }}>
+                  {historyNav ? (
+                    <>
+                      {historyNav.map((url, index) => {
+                        return (
+                          <li key={index}>
+                            <Link key={index} to={url}>
+                              link
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </>
+                  ) : (
+                    <div></div>
+                  )}
+                </ul>
               </NavDropdown>
             </Navbar.Collapse>
           </Col>
