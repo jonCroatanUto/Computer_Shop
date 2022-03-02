@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
 import {
   Navbar,
   Container,
@@ -8,7 +9,34 @@ import {
   Nav,
   Button,
 } from "react-bootstrap";
+import { useHistory, useLocation, Link } from "react-router-dom";
+
 function NavbarComp() {
+  const [productID, setProductId] = useState([""]);
+  const location = useLocation();
+  const { pathname } = location;
+  const [historyNav, setHistoryNav] = useState();
+
+  useEffect(() => {
+    console.log(pathname);
+    const path = [pathname];
+    const Local = localStorage.getItem("paths");
+    setHistoryNav(JSON.parse(Local));
+    if (Local === null) {
+      localStorage.setItem("paths", JSON.stringify(path));
+    } else {
+      const oldLocal = JSON.parse(Local);
+      oldLocal.push(pathname);
+      localStorage.setItem("paths", JSON.stringify(oldLocal));
+    }
+
+    if (pathname !== "/") {
+      const pathnameWithOutSlash = pathname.substring(1);
+      const idStartPoint = pathnameWithOutSlash.indexOf("/") + 1;
+
+      const idParam = pathnameWithOutSlash.slice(idStartPoint, -1);
+    }
+  }, [pathname]);
   const totalProducts = 2;
   return (
     <div style={{ marginBottom: "50px" }}>
@@ -21,12 +49,23 @@ function NavbarComp() {
               <Nav className="me-auto">
                 <Nav.Link href="/">Home</Nav.Link>
                 <Nav.Link href="/details">details</Nav.Link>
-
-                <NavDropdown title="Identify" id="basic-nav-dropdown">
-                  <NavDropdown.Item>Home</NavDropdown.Item>
-                  <NavDropdown.Item>Details</NavDropdown.Item>
-                </NavDropdown>
               </Nav>
+
+              <NavDropdown title="history navegation" id="basic-nav-dropdown">
+                {historyNav ? (
+                  <>
+                    {historyNav.map((url) => {
+                      return (
+                        <NavDropdown.Item>
+                          <Link to={url}>link</Link>
+                        </NavDropdown.Item>
+                      );
+                    })}
+                  </>
+                ) : (
+                  <div></div>
+                )}
+              </NavDropdown>
             </Navbar.Collapse>
           </Col>
           <Col xs={12} md={4} lg={2}>
