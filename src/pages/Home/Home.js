@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { productList } from "../../apiCall";
-import NavbarComp from "../../components/Navbar/NavbarComp";
+
 import InputText from "../../components/InputText/InputText";
 function Home() {
   const [searcherData, setSearcherData] = useState({
@@ -22,7 +22,6 @@ function Home() {
   const { ProductSearcher } = searcherData;
   return (
     <>
-      <NavbarComp />
       <InputText
         type="text"
         id="ProductSearcher"
