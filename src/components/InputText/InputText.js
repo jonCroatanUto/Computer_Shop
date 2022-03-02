@@ -1,6 +1,5 @@
 import React from "react";
 import "./inputTextStyles.css";
-import { inputTextTypeProps } from "../../types";
 
 function InputText({ type, id, label, value, placeholder, handleChange }) {
   return (

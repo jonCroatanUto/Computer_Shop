@@ -12,13 +12,14 @@
   background-color: var(--main-container-color);
   /* font-size: 1.5em; */
   border: 0;
-  border-right: 1px solid #ccc;
+
   border-bottom: 2px solid rgb(0, 0, 0);
   font-family: inherit;
   -webkit-appearance: none;
   padding: 0;
   cursor: text;
   color: rgb(35, 136, 1);
+  width: 20%;
 }
 
 .input-field:focus {
