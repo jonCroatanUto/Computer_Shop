@@ -51,7 +51,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 <pre>  
 ├───.github     <i>// Github actions config files </i>
 ├───public
-├───types.tsx
+├───context
 ├───index.css
 └───src	
     ├───components
@@ -63,10 +63,8 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
     |       └───Details           
     |     
     | 
-    ├─--apiCallls 
-    |      
-    |               
-    └───context
+    └─--apiCallls 
+
  
    
 
@@ -77,26 +75,16 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ## Home page 🗺
 
-Where it's displayed all image by a responsive way using `React-bootstrap`
+Where it's displayed all products by a responsive way using `React-bootstrap` mapping all information recived from the server using `item` component
 
-## ImageDataReducer
+## context
 
-By setting the image data in this reducer my aplication is able to observe de modification that recive this data , as an update or deleing files. By this way , the Home page is syncronized with database and refresh the images displayed
-
-## modalReducer
-
-It allows open the modals from any place of the site and pass to the modal the necessary information.
-
-## ModalHoc
-
-It give the same format to all the content that i want to put inside a modal. That save me to write a lot of repetitive code.
+I use the context to reload the number of car items in navbar each time that the user purchase a product
 
 # ✨ Wishlist
 
-- Login and Register
-- Do a proflie page
-- As a user, see the owner of others images ,chat with them, give likes to images
-- Stadistic follow of your activity as user
+- show the produt name in the navegation hisory
+- Search product for each caracter that user type in search input
 
 # 🖇️ Contributing
 
