@@ -1,10 +1,29 @@
-# Getting Started with Create React App
+# Mobile-Shop
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+this is a computer e-commerce frontend using a given server. User must be able to see all products, access to details of each , and add it to the shopping car. You can add the product with determinate color and determinate model.
 
-## Available Scripts
+## 🚀 to start
 
-In the project directory, you can run:
+to start to ejecuting this code you should:
+
+- Open your terminal in a concret folder
+- Ejecute the comand:
+
+```
+git clone https://github.com/jonCroatanUto/Computer_Shop.git
+```
+
+- Go inside the folder `computer_shop` and run:
+
+```
+npm install
+```
+
+- Create a `.env` file adding in it:
+
+```
+REACT_APP_SERVER_LOCATION=https://front-test-api.herokuapp.com/
+```
 
 ### `npm start`
 
@@ -29,42 +48,56 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+<pre>  
+├───.github     <i>// Github actions config files </i>
+├───public
+├───types.tsx
+├───index.css
+└───src	
+    ├───components
+    |        ├───InputText
+    |        ├───Item
+    |        └───Navbar
+    ├───pages
+    |       ├───Home
+    |       └───Details           
+    |     
+    | 
+    ├─--apiCallls 
+    |      
+    |               
+    └───context
+ 
+   
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+</pre>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# 🧭 App navigation
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Home page 🗺
 
-## Learn More
+Where it's displayed all image by a responsive way using `React-bootstrap`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## ImageDataReducer
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+By setting the image data in this reducer my aplication is able to observe de modification that recive this data , as an update or deleing files. By this way , the Home page is syncronized with database and refresh the images displayed
 
-### Code Splitting
+## modalReducer
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+It allows open the modals from any place of the site and pass to the modal the necessary information.
 
-### Analyzing the Bundle Size
+## ModalHoc
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+It give the same format to all the content that i want to put inside a modal. That save me to write a lot of repetitive code.
 
-### Making a Progressive Web App
+# ✨ Wishlist
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Login and Register
+- Do a proflie page
+- As a user, see the owner of others images ,chat with them, give likes to images
+- Stadistic follow of your activity as user
 
-### Advanced Configuration
+# 🖇️ Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+If you want to contribute, please fork the repository, create a new branch whit your contribution, and push the branch as a pull requests.
