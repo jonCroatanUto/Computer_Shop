@@ -1,29 +1,53 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { productItemDetails, addItemToCar } from "../../apiCall";
 import { Container, Row, Col } from "react-bootstrap";
-import { ListGroup, ListGroupItem } from "react-bootstrap";
+import { ListGroup, ListGroupItem, Button } from "react-bootstrap";
+import Select from "react-select";
+import StorageContext from "../../context";
 function Details() {
+  const { toogleReadLocalStorage } = useContext(StorageContext);
   const { id } = useParams();
   const [productData, setProductData] = useState();
   const [loaded, setLoaded] = useState(false);
-  function addProduct() {
-    const carState = {
-      id: id,
-      colorCode: 1000,
-      storageCode: 2000,
-    };
-    addItemToCar(carState).then((res) => console.log(res.data.count));
+
+  const [carState, setCarState] = useState({
+    id: id,
+    colorCode: null,
+    storageCode: null,
+  });
+
+  function addProduct(e) {
+    e.preventDefault();
+    //console.log(carState);
+    addItemToCar(carState).then((res) => {
+      localStorage.setItem("carItems", JSON.stringify(res.data.count));
+      console.log(res.data.count);
+      toogleReadLocalStorage();
+    });
   }
   useEffect(() => {
     productItemDetails(id).then((res) => {
       const { data } = res;
 
-      console.log(data);
       setProductData(data);
       setLoaded(true);
     });
   }, []);
+  function choseOptionColor(e) {
+    setCarState({
+      ...carState,
+      colorCode: e.value,
+    });
+  }
+
+  function choseOptionStorage(e) {
+    setCarState({
+      ...carState,
+      storageCode: e.value,
+    });
+  }
+
   if (loaded) {
     const {
       imgUrl,
@@ -37,7 +61,37 @@ function Details() {
       battery,
       dimentions,
       weight,
+      options,
     } = productData;
+    const colors = [];
+    const storages = [];
+    function colorsOptions(colorName, colorCode) {
+      console.log(colorName);
+      colors.push({ value: colorCode, label: colorName });
+    }
+    function storageOptions(storageName, storageCode) {
+      storages.push({ value: storageCode, label: storageName });
+    }
+    options.colors.forEach((color) => {
+      const { name, code } = color;
+
+      colorsOptions(name, code);
+    });
+    options.storages.forEach((storage) => {
+      const { name, code } = storage;
+
+      storageOptions(name, code);
+    });
+
+    const customStyles = {
+      option: (provided) => ({
+        ...provided,
+        borderBottom: "1px dotted pink",
+        color: "green",
+        padding: 20,
+      }),
+    };
+
     return (
       <Container>
         <Row>
@@ -62,13 +116,27 @@ function Details() {
               </ListGroup>
             </Row>
             <Row>
-              <div>
-                <img src={imgUrl} alt="product image" />
-              </div>
+              <form onSubmit={addProduct}>
+                <Select
+                  width="500px"
+                  menuColor="red"
+                  styles={customStyles}
+                  onChange={choseOptionColor}
+                  options={colors}
+                />
+                <Select
+                  width="500px"
+                  menuColor="red"
+                  styles={customStyles}
+                  onChange={choseOptionStorage}
+                  options={storages}
+                />
+
+                <Button type="submit">add product to car</Button>
+              </form>
             </Row>
           </Col>
         </Row>
-        <button onClick={addProduct}>add product to car</button>
       </Container>
     );
   } else {
