@@ -51,7 +51,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 <pre>  
 ├───.github     <i>// Github actions config files </i>
 ├───public
-├───types.tsx
+├───context
 ├───index.css
 └───src	
     ├───components
@@ -63,10 +63,8 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
     |       └───Details           
     |     
     | 
-    ├─--apiCallls 
-    |      
-    |               
-    └───context
+    └──--apiCallls 
+
  
    
 
