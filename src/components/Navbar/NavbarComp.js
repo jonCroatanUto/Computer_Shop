@@ -47,29 +47,31 @@ function NavbarComp() {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link href="/">Home</Nav.Link>
-                <Nav.Link href="/details">details</Nav.Link>
+                {pathname === "/" ? (
+                  <Nav.Link>HOME</Nav.Link>
+                ) : (
+                  <Nav.Link>DETAILS</Nav.Link>
+                )}
+                <NavDropdown title="history navegation" id="basic-nav-dropdown">
+                  <ul style={{ listStyle: "none" }}>
+                    {historyNav ? (
+                      <>
+                        {historyNav.map((url, index) => {
+                          return (
+                            <li key={index}>
+                              <Link key={index} to={url}>
+                                link
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </>
+                    ) : (
+                      <div></div>
+                    )}
+                  </ul>
+                </NavDropdown>
               </Nav>
-
-              <NavDropdown title="history navegation" id="basic-nav-dropdown">
-                <ul style={{ listStyle: "none" }}>
-                  {historyNav ? (
-                    <>
-                      {historyNav.map((url, index) => {
-                        return (
-                          <li key={index}>
-                            <Link key={index} to={url}>
-                              link
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </>
-                  ) : (
-                    <div></div>
-                  )}
-                </ul>
-              </NavDropdown>
             </Navbar.Collapse>
           </Col>
           <Col xs={12} md={4} lg={2}>
