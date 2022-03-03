@@ -19,7 +19,7 @@ function Details() {
 
   function addProduct(e) {
     e.preventDefault();
-    //console.log(carState);
+
     addItemToCar(carState).then((res) => {
       const productsAlreadyAdded = JSON.parse(localStorage.getItem("carItems"));
       if (productsAlreadyAdded !== null) {
@@ -27,9 +27,11 @@ function Details() {
         localStorage.setItem("carItems", JSON.stringify(totalPorducts));
       } else {
         localStorage.setItem("carItems", JSON.stringify(res.data.count));
+        setTimeout(() => {
+          localStorage.removeItem("carItems");
+          toogleReadLocalStorage();
+        }, 3600000);
       }
-
-      console.log(res.data.count);
       toogleReadLocalStorage();
     });
   }
@@ -139,7 +141,7 @@ function Details() {
                   options={storages}
                 />
 
-                <Button type="submit">add product to car</Button>
+                <Button type="submit">add product</Button>
               </form>
             </Row>
           </Col>
