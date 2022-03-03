@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import {
   Navbar,
@@ -10,15 +10,17 @@ import {
   Button,
 } from "react-bootstrap";
 import { useHistory, useLocation, Link } from "react-router-dom";
-
+import StorageContext from "../../context";
 function NavbarComp() {
   const [productID, setProductId] = useState([""]);
   const location = useLocation();
   const { pathname } = location;
   const [historyNav, setHistoryNav] = useState();
+  const [carItemsStorage, setCarItemsStorage] = useState(null);
+  const { readLocalStorage } = useContext(StorageContext);
 
   useEffect(() => {
-    console.log(pathname);
+    console.log("context boolean", readLocalStorage);
     const path = [pathname];
     const Local = localStorage.getItem("paths");
     setHistoryNav(JSON.parse(Local));
@@ -37,7 +39,11 @@ function NavbarComp() {
       const idParam = pathnameWithOutSlash.slice(idStartPoint, -1);
     }
   }, [pathname]);
-  const totalProducts = 2;
+
+  useEffect(() => {
+    setCarItemsStorage(JSON.parse(localStorage.getItem("carItems")));
+  }, [readLocalStorage]);
+
   return (
     <div style={{ marginBottom: "50px" }}>
       <Navbar bg="light" expand="lg">
@@ -75,7 +81,9 @@ function NavbarComp() {
             </Navbar.Collapse>
           </Col>
           <Col xs={12} md={4} lg={2}>
-            <p>Total Products : {totalProducts}</p>
+            <p>
+              Total Products : {carItemsStorage === null ? 0 : carItemsStorage}
+            </p>
           </Col>
         </Container>
       </Navbar>
