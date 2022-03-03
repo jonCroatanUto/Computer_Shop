@@ -3,10 +3,19 @@ import { Link } from "react-router-dom";
 import { productList } from "../../apiCall";
 import { Container, Row, Col } from "react-bootstrap";
 import InputText from "../../components/InputText/InputText";
+import Item from "../../components/Item";
 function Home() {
   const [items, setItems] = useState();
+  const [isloading, setIsLoading] = useState(false);
+  const [isloaded, setisLoaded] = useState(false);
   useEffect(() => {
-    productList().then((res) => console.log(res));
+    setIsLoading(true);
+    productList().then((res) => {
+      const { data } = res;
+      setItems(data);
+      setIsLoading(false);
+      setisLoaded(true);
+    });
   }, []);
   const [searcherData, setSearcherData] = useState({
     ProductSearcher: "",
@@ -20,7 +29,6 @@ function Home() {
     });
   }
 
-  const id = "soy un id";
   const { ProductSearcher } = searcherData;
   return (
     <Container>
@@ -38,9 +46,30 @@ function Home() {
         </Col>
       </Row>
       <Row>
-        <Link to={`/details/${id}`}>
-          <button>Go to details</button>
-        </Link>
+        {isloaded ? (
+          items.map((item, index) => {
+            const { id, brand, imgUrl, model, price } = item;
+            return (
+              <Col key={index} xs={10} md={4} lg={3}>
+                <Link
+                  key={index}
+                  style={{ textDecoration: "none" }}
+                  to={`/details/${id}`}
+                >
+                  <Item
+                    key={index}
+                    image={imgUrl}
+                    model={model}
+                    brand={brand}
+                    price={price}
+                  />
+                </Link>
+              </Col>
+            );
+          })
+        ) : (
+          <div></div>
+        )}
       </Row>
     </Container>
   );
