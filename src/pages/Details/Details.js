@@ -21,7 +21,14 @@ function Details() {
     e.preventDefault();
     //console.log(carState);
     addItemToCar(carState).then((res) => {
-      localStorage.setItem("carItems", JSON.stringify(res.data.count));
+      const productsAlreadyAdded = JSON.parse(localStorage.getItem("carItems"));
+      if (productsAlreadyAdded !== null) {
+        const totalPorducts = productsAlreadyAdded + res.data.count;
+        localStorage.setItem("carItems", JSON.stringify(totalPorducts));
+      } else {
+        localStorage.setItem("carItems", JSON.stringify(res.data.count));
+      }
+
       console.log(res.data.count);
       toogleReadLocalStorage();
     });

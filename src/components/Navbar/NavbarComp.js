@@ -43,8 +43,6 @@ function NavbarComp() {
   useEffect(() => {
     setCarItemsStorage(JSON.parse(localStorage.getItem("carItems")));
   }, [readLocalStorage]);
-  const totalProducts = 2;
-  useEffect(() => {}, []);
 
   return (
     <div style={{ marginBottom: "50px" }}>
