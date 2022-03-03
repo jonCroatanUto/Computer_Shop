@@ -103,15 +103,16 @@ function Details() {
 
     return (
       <Container>
-        <Row>
-          <Col>
+        <Row className="justify-content-center">
+          <Col className="text-center">
             <div>
-              <img src={imgUrl} alt="product image" />
+              <img style={{ width: "50%" }} src={imgUrl} alt="product image" />
             </div>
           </Col>
           <Col>
             <Row>
-              <ListGroup style={{ width: "25rem", fontSize: "12px" }}>
+              <h1>PRODUCT DETAILS</h1>
+              <ListGroup style={{ fontSize: "12px" }}>
                 <ListGroupItem>{`Marca: ${brand}`}</ListGroupItem>
                 <ListGroupItem>{`Modelo: ${model}`}</ListGroupItem>
                 <ListGroupItem>{`Precio: ${price}`}</ListGroupItem>
@@ -125,7 +126,9 @@ function Details() {
               </ListGroup>
             </Row>
             <Row>
-              <form onSubmit={addProduct}>
+              <form style={{ marginTop: "25px" }} onSubmit={addProduct}>
+                <h1>SELECT:</h1>
+                <h3>colors</h3>
                 <Select
                   width="500px"
                   menuColor="red"
@@ -133,6 +136,7 @@ function Details() {
                   onChange={choseOptionColor}
                   options={colors}
                 />
+                <h3>storage</h3>
                 <Select
                   width="500px"
                   menuColor="red"

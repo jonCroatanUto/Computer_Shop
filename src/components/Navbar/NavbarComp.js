@@ -9,9 +9,10 @@ import {
   Nav,
   Button,
 } from "react-bootstrap";
-import { useHistory, useLocation, Link } from "react-router-dom";
+import { useHistory, useLocation, Link, useParams } from "react-router-dom";
 import StorageContext from "../../context";
-function NavbarComp() {
+import { productItemDetails } from "../../apiCall";
+function NavbarComp({ name }) {
   const [productID, setProductId] = useState([""]);
   const location = useLocation();
   const { pathname } = location;
@@ -19,24 +20,33 @@ function NavbarComp() {
   const [carItemsStorage, setCarItemsStorage] = useState(null);
   const { readLocalStorage } = useContext(StorageContext);
 
+  const { id } = useParams();
   useEffect(() => {
-    console.log("context boolean", readLocalStorage);
-    const path = [pathname];
     const Local = localStorage.getItem("paths");
     setHistoryNav(JSON.parse(Local));
-    if (Local === null) {
-      localStorage.setItem("paths", JSON.stringify(path));
-    } else {
-      const oldLocal = JSON.parse(Local);
-      oldLocal.push(pathname);
-      localStorage.setItem("paths", JSON.stringify(oldLocal));
-    }
-
     if (pathname !== "/") {
       const pathnameWithOutSlash = pathname.substring(1);
       const idStartPoint = pathnameWithOutSlash.indexOf("/") + 1;
 
       const idParam = pathnameWithOutSlash.slice(idStartPoint, -1);
+      const path = [{ path: pathname, name: `productDetail` }];
+
+      if (Local === null) {
+        localStorage.setItem("paths", JSON.stringify(path));
+      } else {
+        const oldLocal = JSON.parse(Local);
+        oldLocal.push({ path: pathname, name: `productDetail` });
+        localStorage.setItem("paths", JSON.stringify(oldLocal));
+      }
+    } else {
+      const path = [{ path: pathname, name: `HOME` }];
+      if (Local === null) {
+        localStorage.setItem("paths", JSON.stringify(path));
+      } else {
+        const oldLocal = JSON.parse(Local);
+        oldLocal.push({ path: pathname, name: "HOME" });
+        localStorage.setItem("paths", JSON.stringify(oldLocal));
+      }
     }
   }, [pathname]);
 
@@ -62,11 +72,12 @@ function NavbarComp() {
                   <ul style={{ listStyle: "none" }}>
                     {historyNav ? (
                       <>
-                        {historyNav.map((url, index) => {
+                        {historyNav.map((itemPlace, index) => {
+                          const { path, name } = itemPlace;
                           return (
                             <li key={index}>
-                              <Link key={index} to={url}>
-                                link
+                              <Link key={index} to={path}>
+                                {name}
                               </Link>
                             </li>
                           );

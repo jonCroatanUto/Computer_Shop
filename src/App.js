@@ -7,16 +7,19 @@ import NavbarComp from "./components/Navbar/NavbarComp";
 import StorageContext from "./context";
 function App() {
   const [readLocalStorage, setReadLocalStorage] = useState(false);
+
   function toogleReadLocalStorage() {
     setReadLocalStorage((readLocalStorage) =>
       readLocalStorage === false ? true : false
     );
   }
+
   return (
     <>
       <StorageContext.Provider
         value={{
           readLocalStorage,
+
           toogleReadLocalStorage,
         }}
       >
