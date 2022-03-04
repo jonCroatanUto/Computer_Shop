@@ -42,7 +42,7 @@ function Details() {
       setProductData(data);
       setLoaded(true);
     });
-  }, []);
+  }, [id]);
   function choseOptionColor(e) {
     setCarState({
       ...carState,
@@ -104,12 +104,12 @@ function Details() {
     return (
       <Container>
         <Row className="justify-content-center">
-          <Col className="text-center">
+          <Col xs={12} md={12} lg={6} className="text-center">
             <div>
               <img style={{ width: "50%" }} src={imgUrl} alt="product image" />
             </div>
           </Col>
-          <Col>
+          <Col xs={12} md={12} lg={6}>
             <Row>
               <h1>PRODUCT DETAILS</h1>
               <ListGroup style={{ fontSize: "12px" }}>

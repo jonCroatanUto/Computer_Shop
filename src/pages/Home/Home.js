@@ -84,11 +84,11 @@ function Home() {
           items.map((item, index) => {
             const { id, brand, imgUrl, model, price } = item;
             return (
-              <Col key={index} xs={10} md={4} lg={3}>
+              <Col key={index} xs={8} md={4} lg={3}>
                 <Link
                   key={index}
                   style={{ textDecoration: "none" }}
-                  to={`/details/${id}`}
+                  to={`/details/${id}?model=${model}`}
                 >
                   <Item
                     key={index}

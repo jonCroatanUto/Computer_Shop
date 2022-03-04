@@ -8,34 +8,34 @@ import {
   NavDropdown,
   Nav,
   Button,
+  ListGroup,
+  ListGroupItem,
 } from "react-bootstrap";
-import { useHistory, useLocation, Link, useParams } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import StorageContext from "../../context";
-import { productItemDetails } from "../../apiCall";
-function NavbarComp({ name }) {
-  const [productID, setProductId] = useState([""]);
+
+function NavbarComp() {
   const location = useLocation();
   const { pathname } = location;
   const [historyNav, setHistoryNav] = useState();
   const [carItemsStorage, setCarItemsStorage] = useState(null);
   const { readLocalStorage } = useContext(StorageContext);
 
-  const { id } = useParams();
   useEffect(() => {
     const Local = localStorage.getItem("paths");
     setHistoryNav(JSON.parse(Local));
     if (pathname !== "/") {
-      const pathnameWithOutSlash = pathname.substring(1);
-      const idStartPoint = pathnameWithOutSlash.indexOf("/") + 1;
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const model = urlParams.get("model");
 
-      const idParam = pathnameWithOutSlash.slice(idStartPoint, -1);
-      const path = [{ path: pathname, name: `productDetail` }];
+      const path = [{ path: pathname, name: `Detail: ${model}` }];
 
       if (Local === null) {
         localStorage.setItem("paths", JSON.stringify(path));
       } else {
         const oldLocal = JSON.parse(Local);
-        oldLocal.push({ path: pathname, name: `productDetail` });
+        oldLocal.push({ path: pathname, name: `Detail: ${model}` });
         localStorage.setItem("paths", JSON.stringify(oldLocal));
       }
     } else {
@@ -69,24 +69,28 @@ function NavbarComp({ name }) {
                   <Nav.Link>DETAILS</Nav.Link>
                 )}
                 <NavDropdown title="history navegation" id="basic-nav-dropdown">
-                  <ul style={{ listStyle: "none" }}>
+                  <ListGroup>
                     {historyNav ? (
-                      <>
+                      <div style={{ maxHeight: "100px", overflow: "scroll" }}>
                         {historyNav.map((itemPlace, index) => {
                           const { path, name } = itemPlace;
                           return (
-                            <li key={index}>
-                              <Link key={index} to={path}>
+                            <ListGroupItem key={index}>
+                              <Link
+                                style={{ textDecoration: "none" }}
+                                key={index}
+                                to={path}
+                              >
                                 {name}
                               </Link>
-                            </li>
+                            </ListGroupItem>
                           );
                         })}
-                      </>
+                      </div>
                     ) : (
                       <div></div>
                     )}
-                  </ul>
+                  </ListGroup>
                 </NavDropdown>
               </Nav>
             </Navbar.Collapse>
