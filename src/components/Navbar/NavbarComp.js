@@ -71,7 +71,7 @@ function NavbarComp() {
                 <NavDropdown title="history navegation" id="basic-nav-dropdown">
                   <ListGroup>
                     {historyNav ? (
-                      <div style={{ maxHeight: "100px", overflow: "scroll" }}>
+                      <div style={{ maxHeight: "200px", overflow: "scroll" }}>
                         {historyNav.map((itemPlace, index) => {
                           const { path, name } = itemPlace;
                           return (
@@ -79,7 +79,7 @@ function NavbarComp() {
                               <Link
                                 style={{ textDecoration: "none" }}
                                 key={index}
-                                to={path}
+                                to={`${path}?model=${name}`}
                               >
                                 {name}
                               </Link>

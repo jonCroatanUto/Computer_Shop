@@ -59,7 +59,7 @@ function Home() {
                   id="ProductSearcher"
                   label="Search a product"
                   value={ProductSearcher}
-                  placeholder="Search a product"
+                  placeholder="By model or by brand"
                   handleChange={setSearcherWord}
                 />
               </Col>
