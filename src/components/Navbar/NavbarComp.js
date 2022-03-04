@@ -29,13 +29,13 @@ function NavbarComp() {
       const urlParams = new URLSearchParams(queryString);
       const model = urlParams.get("model");
 
-      const path = [{ path: pathname, name: `Detail: ${model}` }];
+      const path = [{ path: pathname, name: model }];
 
       if (Local === null) {
         localStorage.setItem("paths", JSON.stringify(path));
       } else {
         const oldLocal = JSON.parse(Local);
-        oldLocal.push({ path: pathname, name: `Detail: ${model}` });
+        oldLocal.push({ path: pathname, name: model });
         localStorage.setItem("paths", JSON.stringify(oldLocal));
       }
     } else {
@@ -74,6 +74,8 @@ function NavbarComp() {
                       <div style={{ maxHeight: "200px", overflow: "scroll" }}>
                         {historyNav.map((itemPlace, index) => {
                           const { path, name } = itemPlace;
+                          const FinishOfDetailWord = [...name].indexOf(":") + 1;
+
                           return (
                             <ListGroupItem key={index}>
                               <Link
@@ -81,7 +83,7 @@ function NavbarComp() {
                                 key={index}
                                 to={`${path}?model=${name}`}
                               >
-                                {name}
+                                {`Detail:${name}`}
                               </Link>
                             </ListGroupItem>
                           );
